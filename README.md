@@ -3,6 +3,7 @@ Dockerfiles to create all docker images required to run an instance of alf.io
 
 ## Pre-requisite
 Install [Docker](https://docs.docker.com/installation/).
+On Mac or Windows install and run also [Boot2Docker](http://boot2docker.io/) 
 
 ## TL;DR, I just want an instance up-and-running
 
@@ -10,7 +11,7 @@ Install [Docker](https://docs.docker.com/installation/).
 ```
 docker pull exteso/alfio-db
 docker pull exteso/alfio-web
-docker pull exteso/haproxy
+docker pull tutum/haproxy
 ```
 
 ### Launch alfio-db
