@@ -15,18 +15,24 @@ docker pull exteso/alfio-web
 docker pull tutum/haproxy
 ```
 
-### Launch alfio-db
+### Launch Alf.io
+Start an empty DB instance
 ```
 docker run --name alfio-db -e DOCKER_DB_NAME=postgres -e POSTGRES_USERNAME=postgres -e POSTGRES_PASSWORD=alfiopassword -d exteso/alfio-db
 ```
 
-### Launch alfio-web
+Start the alf.io web application
 ```
 docker run --name alfio-web --link alfio-db:db -d exteso/alfio-web
 ```
+* Note: alfio-web requires https when accessing the web gui, thus you have to configure a proxy with SSL certificate in front of it. Only for TEST purposes, you can start alfio-web in http-only mode using the following command:
+   ```
+   docker run --name alfio-web --link alfio-db:db -e spring.profiles.active=http -d exteso/alfio-web
+   ```
 
-### Launch alfio-webproxy
-Create a .pem certificate (servercert.pem) and use it in the next command
+### Start a proxy
+
+Create a .pem certificate and use it in the next command (here it is called "servercert.pem")
 ```
 docker run --name alfio-proxy --link alfio-web:web1 -e SSL_CERT="$(awk 1 ORS='\\n' servercert.pem)" -e PORT=8080 -p 443:443 -d tutum/haproxy
 ```
